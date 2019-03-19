@@ -2,6 +2,7 @@ package com.gentwo.th.spotbook;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.gentwo.th.spotbook.drawer.NavigationView;
 
@@ -14,5 +15,6 @@ public class NavigateActivity extends AppCompatActivity {
         NavigationView navigationView = new NavigationView(getApplicationContext());
 
         setContentView(navigationView);
+
     }
 }

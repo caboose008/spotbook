@@ -2,6 +2,7 @@ package com.gentwo.th.spotbook;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.gentwo.th.spotbook.db.LocationEntity;
+import com.gentwo.th.spotbook.db.SpotbookDatabase;
 import com.gentwo.th.spotbook.drawer.NavigationView;
 
 import java.util.logging.Logger;
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         locationManager = (LocationManager) this.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        if(!isLocationSettingsEnabled()){
+        if (!isLocationSettingsEnabled()) {
             showDialogForLocationSettings();
         }
         if (ContextCompat.checkSelfPermission(this,
@@ -50,11 +53,18 @@ public class MainActivity extends AppCompatActivity {
             startListening();
         }
         final Intent navigateActivity = new Intent(this, NavigateActivity.class);
-        Button button = findViewById(R.id.startNavigation);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button navButton = findViewById(R.id.startNavigation);
+        navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getApplicationContext().startActivity(navigateActivity);
+            }
+        });
+        Button saveButton = findViewById(R.id.saveLocation);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }
@@ -110,15 +120,17 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         locationManager.removeUpdates(locationListener);
     }
+
     // Register the listener with the Location Manager to receive location updates
-    private boolean isLocationSettingsEnabled(){
-        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+    private boolean isLocationSettingsEnabled() {
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             return true;
         } else {
             return false;
         }
     }
-    private void showDialogForLocationSettings(){
+
+    private void showDialogForLocationSettings() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
                 .setTitle("Important")
@@ -134,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         System.exit(0);
                     }
-                })						//Do nothing on no
+                })                        //Do nothing on no
                 .show();
 
     }

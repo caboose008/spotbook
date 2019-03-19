@@ -13,4 +13,12 @@
         android:text="Navigate"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="354dp" />
+
+    <Button
+        android:id="@+id/saveLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save location"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="136dp" />
 </android.support.constraint.ConstraintLayout>

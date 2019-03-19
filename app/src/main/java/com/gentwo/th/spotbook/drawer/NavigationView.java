@@ -28,5 +28,4 @@ public class NavigationView extends View {
         paint.setColor(Color.parseColor("#CD5C5C"));
         canvas.drawCircle(x / 2, y / 2, radius, paint);
     }
-
 }
